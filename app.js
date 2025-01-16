@@ -1,5 +1,6 @@
 
 let listaNumerosSorteados = [];
+let numeroLimite = 100;
 let numeroSecreto;
 let tentativas;
 
@@ -8,16 +9,16 @@ iniciarNovoJogo();
 
 function iniciarNovoJogo() {
         limparLista();
-        numeroSecreto = gerarNumeroAleatorio();
+        numeroSecreto = gerarNumeroAleatorio(numeroLimite);
         tentativas = 0;
         exibirTextoNaTela('h1', 'Jogo do Número Secreto');
-        exibirTextoNaTela('p', 'Escolha um número entre 1 e 100');
+        exibirTextoNaTela('p', `Escolha um número entre 1 e ${numeroLimite}`);
         document.getElementById('reiniciar').setAttribute('disabled', true);
 }
 
 function verificarChute() {
     let chute = document.querySelector('input').value;
-    if (chute.match('[1-9]')) {
+    if (chute.match('[1-9]') && chute <= numeroLimite) {
         
         tentativas++;
         if (chute == numeroSecreto) {
@@ -32,14 +33,14 @@ function verificarChute() {
         limparCampo();
 
     } else {
-        alert('O palpite deve ser um número');
+        alert(`O palpite deve ser um número entre 1 e ${numeroLimite}`);
         limparCampo();
     }
 }
 
 
-function gerarNumeroAleatorio() {
-    let numero = parseInt(Math.random() * 100 + 1);
+function gerarNumeroAleatorio(numeroLimite) {
+    let numero = parseInt(Math.random() * numeroLimite + 1);
     if (!listaNumerosSorteados.includes(numero)) {
         listaNumerosSorteados.push(numero);
         return numero;
