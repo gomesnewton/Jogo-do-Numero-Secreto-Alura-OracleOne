@@ -18,7 +18,7 @@ function iniciarNovoJogo() {
 
 function verificarChute() {
     let chute = document.querySelector('input').value;
-    if (chute.match('[1-9]') && chute <= numeroLimite) {
+    if (validaPossibilidades(chute)) {
         
         tentativas++;
         if (chute == numeroSecreto) {
@@ -38,6 +38,9 @@ function verificarChute() {
     }
 }
 
+function validaPossibilidades(chute) {
+    return chute.match('[1-9]') && (chute >= 1 && chute <= numeroLimite);
+}
 
 function gerarNumeroAleatorio(numeroLimite) {
     let numero = parseInt(Math.random() * numeroLimite + 1);
